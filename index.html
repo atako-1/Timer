@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> timer</title>
+  <style>
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    body{
+      height: 100vh;
+      background-color: lightsalmon;
+    }
+    main{
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      height: 90vh;
+    }
+    section{
+      background-color: #42445A;
+      padding: 10px;
+      width: 80vw;
+      border-radius: 5px;
+      box-shadow: 0px 5px 0px #323443;
+      
+      
+    }
+    
+    article#timer{
+      background-color: white;
+      padding: 5px;
+      border-radius: 5px;
+      border: 2px solid #909090;
+      flex: auto;
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+    }
+    article.botoes{
+      display: flex;
+    }
+    div.botoes{
+      background-color: grey;
+      display: inline-block;
+      border-radius: 5px;
+      padding: 3px;
+      margin: 5px;
+      box-shadow: 0px 2px 0px #515151;
+      font-weight: bold;
+      width: 50px;
+      text-align: center;
+      height: 50px;
+      
+      
+    }
+    div#pausar, div#acabar, div#iniciar{
+      flex: auto;
+    }
+    div#pausar{
+      display: none;
+    }
+    div.img2{
+      background: url("/img/iniciar.png");
+      background-size: 50px 50px;
+      background-position: center center;
+      height: 50px;
+      width: 50px;
+      margin: auto;
+    }
+    div.img1{
+      background: url("/img/finalizar.png");
+      background-size: 50px 50px;
+      background-position: center center;
+      height: 50px;
+      width: 50px;
+      margin: auto;
+    }
+    div.img3{
+      background: url("/img/pausar.png");
+      background-size: 65px 65px;
+      background-position: center center;
+      height: 50px;
+      width: 50px;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section>
+      <article id="timer">
+        00:00:00
+      </article>
+      <article class="botoes">
+        
+        <div 
+        id="acabar" 
+        class="botoes"
+        onclick="acabar()">
+        <div class="img1">
+          </div>
+        </div>
+        
+        
+        <div 
+        id="iniciar" 
+        class="botoes"
+        onclick="iniciar()"
+        >
+         <div class="img2">
+         </div>
+        </div>
+        
+        
+        <div 
+        id="pausar" 
+        class="botoes"
+        onclick="pausar()"
+        >
+        <div class="img3">
+        </div>
+        </div>
+        
+        
+      </article>
+    </section>
+  </main>
+  <script>
+  
+  
+    let timer
+    const botao_iniciar = document.getElementById('iniciar')
+    const botao_pausar = document.getElementById('pausar')
+    const botao_finalizar = document.getElementById('acabar')
+    let res = document.getElementById('timer')
+    let segundos = 0
+    let minutos = 0
+    let horas = 0
+    let s = 0
+    let m = 0
+    let h = 0
+    
+    
+    
+    
+    
+    
+    function iniciar(){
+      if(botao_pausar.style.display == 'none' ||  botao_pausar.style.display == ''){
+        
+        botao_pausar.style.display = 'flex'
+        botao_iniciar.style.display = 'none'
+        
+      }else{
+        
+        botao_iniciar.style.display = 'flex'
+        botao_pausar.style.display = 'none'
+        
+      }
+      timer = setInterval(()=>{
+        segundos++
+        
+        s = String(segundos).padStart(2, '0')
+        m = String(minutos).padStart(2, '0')
+        h = String(horas).padStart(2, '0')
+        
+        if(segundos > 59){
+          segundos = 0
+          minutos++
+        }else if(minutos > 59){
+          minutos = 0
+          horas++
+        }else if(horas == 24){
+          horas = 0
+          segundos = 0
+          segundos = 0
+        }
+        
+        res.innerHTML = `${h}:${m}:${s}`
+        
+      }, 100)
+    }
+    
+    function pausar(){
+      botao_pausar.style.display = 'none'
+      botao_iniciar.style.display = 'flex'
+      
+      res.innerHTML = `${h}:${m}:${s}`
+      clearInterval(timer)
+    }
+    
+    function acabar(){
+      botao_pausar.style.display = 'none'
+      botao_iniciar.style.display = 'flex'
+      clearInterval(timer)
+      res.innerHTML = `00:00:00`
+      segundos = 0
+      minutos = 0
+      horas = 0
+    }
+  </script>
+</body>
+
+</html>
